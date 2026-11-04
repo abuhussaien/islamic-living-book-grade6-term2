@@ -6,6 +6,8 @@
 
 ## التشغيل
 
+**[افتح الكتاب الحي مباشرة](https://abuhussaien.github.io/islamic-living-book-grade6-term2/)**
+
 حمّل المستودع وافتح `index.html` مباشرة في متصفح حديث، أو شغّل خادمًا محليًا من جذر المشروع:
 
 ```sh
@@ -46,6 +48,8 @@ node verify-expanded.cjs
 
 الشفرة والمحتوى التعليمي الأصلي والصور التعبيرية التي أُعدت للمشروع متاحة بترخيص [MIT](LICENSE)، في حدود الحقوق المملوكة لصاحب المشروع. لا يمنح الترخيص حقوقًا في الكتاب المدرسي الأصلي أو مواد أطراف أخرى. هذا مشروع تعليمي مستقل وليس إصدارًا رسميًا من وزارة التعليم. يمكن إرسال التصحيحات عبر Issues أو Pull Requests مع صفحة المرجع وسبب التعديل، دون بيانات شخصية للطلاب.
 
-يمكن نسخ ملفات المشروع إلى أي استضافة ثابتة تختارها. هذا المستودع لا يفعّل استضافة عامة ولا يغير صلاحيات الموقع الخاص القائم.
+رابط التشغيل المباشر للفصل الثاني: https://abuhussaien.github.io/islamic-living-book-grade6-term2/
+
+تُنشر نسخة GitHub Pages تلقائيًا من فرع `main` ومجلد الجذر. يمكن نسخ ملفات المشروع إلى أي استضافة ثابتة تختارها. تبقى إعدادات الموقع الخاص القائم مستقلة عن هذه النسخة.
 
 Arabic RTL interactive Islamic Studies living book for Saudi Grade 6, semester 2. Pure HTML, CSS and JavaScript, SVG/Canvas and Web Audio. No external runtime dependencies. Textbook source-page images and the original photos used by the lessons are included with attribution to the Saudi Ministry of Education.
