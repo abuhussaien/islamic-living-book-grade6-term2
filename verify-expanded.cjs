@@ -1,4 +1,14 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+// Catch empty or truncated uploads before publishing source images.
+const imageFiles=fs.readdirSync('.').filter(f=>/\.(jpe?g|webp)$/i.test(f));
+for(const file of imageFiles){
+ const bytes=fs.readFileSync(file);
+ if(/\.jpe?g$/i.test(file)){
+  assert(bytes.length>4 && bytes.readUInt16BE(0)===0xffd8 && bytes.readUInt16BE(bytes.length-2)===0xffd9,file+' is an incomplete JPEG');
+ }else{
+  assert(bytes.length>=12 && bytes.toString('ascii',0,4)==='RIFF' && bytes.toString('ascii',8,12)==='WEBP' && bytes.readUInt32LE(4)+8===bytes.length,file+' is an incomplete WebP');
+ }
+}
 const nodes=new Map(),handlers={};
 const node=q=>{if(!nodes.has(q))nodes.set(q,{innerHTML:'',textContent:'',value:'',hidden:false,disabled:false,focus(){},setAttribute(){},addEventListener(){},classList:{toggle(){}},showModal(){},close(){}});return nodes.get(q);};
 const ctx=vm.createContext({console,setInterval,clearInterval,requestAnimationFrame(){},matchMedia:()=>({matches:true}),location:{hash:''},document:{querySelector:node,body:{classList:{toggle(){}}},addEventListener:(e,f)=>(handlers[e]??=[]).push(f)},window:{addEventListener(){},scrollTo(){},LESSONS:null},innerWidth:1280,innerHeight:900});
@@ -40,4 +50,4 @@ for(const l of lessons){
  act('resetQuiz',0);assert.equal(run('state().quiz.length'),0);assert.equal(run('state().quizPage'),0);assert.equal(run('state().plan'),'');
  assert(!node('#bookContent').innerHTML.includes('undefined'));assert(!node('#bookContent').innerHTML.includes('NaN'));
 }
-console.log(JSON.stringify({lessons:lessons.length,stagesPerLesson:4,readSections,watchDecisionPaths:watched,labActivities:lessons.length,labChecks:lessons.length,mcqs,openResponses:open,resetsAndStateIsolation:'passed',scope:'Node render and interaction tests; not browser layout or physical-device testing.'},null,2));
+console.log(JSON.stringify({lessons:lessons.length,imageFiles:imageFiles.length,stagesPerLesson:4,readSections,watchDecisionPaths:watched,labActivities:lessons.length,labChecks:lessons.length,mcqs,openResponses:open,resetsAndStateIsolation:'passed',scope:'Node render and interaction tests; not browser layout or physical-device testing.'},null,2));
